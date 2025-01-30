@@ -200,4 +200,4 @@ John
 
 ## 文档
 
-详细文档请访问 [Wiki](https://github.com/YOUR_USERNAME/SearchHub/wiki)
+详细文档请访问 [Wiki](https://github.com/Forexin/SearchHub/wiki)
