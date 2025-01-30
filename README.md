@@ -188,7 +188,7 @@ class YourPlugin(PluginBase):
 
 ## 作者
 
-[您的名字] - [您的邮箱]
+John
 
 ## 更新日志
 
