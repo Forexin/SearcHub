@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'Font Awesome 5 Free';
+    font-style: normal;
+    font-weight: 900;
+    font-display: block;
+    src: url("../webfonts/fa-solid-900.woff2") format("woff2"),
+         url("../webfonts/fa-solid-900.woff") format("woff"),
+         url("../webfonts/fa-solid-900.ttf") format("truetype");
+}
+
+.fa,
+.fas {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+
+/* 这里是图标的 Unicode 定义 */
+.fa-chart-line:before{content:"\f201"}
+.fa-puzzle-piece:before{content:"\f12e"}
+.fa-cog:before{content:"\f013"}
+.fa-tools:before{content:"\f7d9"}
+.fa-bars:before{content:"\f0c9"}
+.fa-moon:before{content:"\f186"}
+.fa-exclamation-circle:before{content:"\f06a"} 

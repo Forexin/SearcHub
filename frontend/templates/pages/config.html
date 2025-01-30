@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="container mx-auto">
+    <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-2xl font-bold mb-4">配置管理</h2>
+        
+        <!-- 配置文件列表 -->
+        <div class="space-y-4">
+            <div class="border rounded-lg p-4">
+                <h3 class="text-lg font-semibold mb-2">系统配置</h3>
+                <div id="systemConfigEditor" class="mb-4">
+                    <textarea class="w-full h-64 font-mono">{{ system_config }}</textarea>
+                </div>
+                <div class="flex justify-end">
+                    <button onclick="saveSystemConfig()" 
+                            class="bg-blue-500 text-white px-4 py-2 rounded">
+                        保存
+                    </button>
+                </div>
+            </div>
+            
+            <div class="border rounded-lg p-4">
+                <h3 class="text-lg font-semibold mb-2">环境变量</h3>
+                <div id="envConfigEditor" class="mb-4">
+                    <textarea class="w-full h-64 font-mono">{{ env_config }}</textarea>
+                </div>
+                <div class="flex justify-end">
+                    <button onclick="saveEnvConfig()" 
+                            class="bg-blue-500 text-white px-4 py-2 rounded">
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

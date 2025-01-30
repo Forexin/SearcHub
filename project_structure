@@ -1,0 +1,21 @@
+search_aggregator/
+├── config/
+│   └── config.yaml
+├── plugins/
+│   └── __init__.py
+├── src/
+│   ├── __init__.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── plugin_manager.py
+│   │   ├── search_coordinator.py
+│   │   ├── result_aggregator.py
+│   │   └── environment_manager.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   └── schemas.py
+│   └── api/
+│       ├── __init__.py
+│       └── routes.py
+├── requirements.txt
+└── main.py 

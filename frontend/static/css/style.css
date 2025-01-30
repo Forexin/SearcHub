@@ -1,0 +1,83 @@
+/* 暗色主题 */
+.dark {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.dark .bg-white {
+    background-color: #2d2d2d;
+}
+
+.dark .text-gray-600 {
+    color: #a0aec0;
+}
+
+.dark .text-gray-800 {
+    color: #e2e8f0;
+}
+
+.dark .border {
+    border-color: #4a5568;
+}
+
+.dark .shadow {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    aside {
+        position: fixed;
+        z-index: 50;
+        height: 100vh;
+        transform: translateX(0);
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    aside.hidden {
+        transform: translateX(-100%);
+    }
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* 动画效果 */
+.fade-enter {
+    opacity: 0;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 200ms ease-in;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 200ms ease-out;
+}

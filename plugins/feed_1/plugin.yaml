@@ -1,0 +1,24 @@
+communication:
+  port: 8081
+  protocol: http
+description: 自动生成的 RSS 插件 - 交易通知_华商储备商品管理中心有限公司
+environment:
+  dependencies:
+  - aiohttp==3.8.1
+  - feedparser==6.0.10
+  - beautifulsoup4==4.9.3
+  runtime: python3.8
+language: python
+name: feed_1
+settings:
+  request:
+    headers:
+      User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+    max_retries: 3
+    retry_delay: 2
+    timeout: 10
+  urls:
+  - https://rsshub.rssforever.com/mrm
+status: running
+type: crawler
+version: 1.0.0

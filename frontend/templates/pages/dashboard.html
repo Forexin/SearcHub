@@ -1,0 +1,170 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="container mx-auto">
+    <!-- 添加搜索框 -->
+    <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <form id="searchForm" class="flex space-x-4">
+            <input type="text" id="searchKeyword" 
+                   class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                   placeholder="输入搜索关键词...">
+            <button type="submit" 
+                    class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">
+                搜索
+            </button>
+        </form>
+        
+        <!-- 搜索结果区域 -->
+        <div id="searchResults" class="mt-4 hidden">
+            <h3 class="text-lg font-semibold mb-2">搜索结果</h3>
+            <div id="resultsList" class="space-y-4">
+                <!-- 结果将通过 JavaScript 动态添加 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 系统状态卡片 -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold mb-2">活跃插件</h3>
+            <p class="text-3xl font-bold text-blue-600">{{ active_plugins_count }}</p>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold mb-2">总请求数</h3>
+            <p class="text-3xl font-bold text-green-600">{{ total_requests }}</p>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold mb-2">系统运行时间</h3>
+            <p class="text-3xl font-bold text-purple-600">{{ uptime }}</p>
+        </div>
+    </div>
+    
+    <!-- 系统控制按钮 -->
+    <div class="mb-6">
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold">系统控制</h3>
+                <div class="space-x-2">
+                    <button onclick="controlSystem('start')" 
+                            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                        启动系统
+                    </button>
+                    <button onclick="controlSystem('stop')" 
+                            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                        停止系统
+                    </button>
+                    <button onclick="controlSystem('restart')" 
+                            class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+                        重启系统
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 插件状态列表 -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-xl font-semibold mb-4">插件状态</h2>
+        <div class="plugins-section">
+            <h2>插件管理</h2>
+            <div class="plugins-list" id="pluginsList">
+                {% for plugin in plugins_status %}
+                <div class="plugin-item" data-plugin-name="{{ plugin.name }}">
+                    <div class="plugin-info">
+                        <span class="plugin-name">{{ plugin.name }}</span>
+                        <span class="plugin-status {{ plugin.status }}">{{ plugin.status }}</span>
+                    </div>
+                    <div class="plugin-controls">
+                        <button class="toggle-plugin" 
+                                data-plugin-name="{{ plugin.name }}" 
+                                data-current-status="{{ plugin.status }}">
+                            {% if plugin.status == 'running' %}
+                                停止
+                            {% else %}
+                                启动
+                            {% endif %}
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 添加搜索相关的 JavaScript -->
+{% block scripts %}
+<script>
+document.getElementById('searchForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const keyword = document.getElementById('searchKeyword').value;
+    const resultsDiv = document.getElementById('searchResults');
+    const resultsList = document.getElementById('resultsList');
+    
+    try {
+        const response = await fetch('/api/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ keyword })
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            
+            // 显示结果区域
+            resultsDiv.classList.remove('hidden');
+            
+            // 清空之前的结果
+            resultsList.innerHTML = '';
+            
+            // 添加新结果
+            data.results.forEach(result => {
+                const resultElement = document.createElement('div');
+                resultElement.className = 'bg-gray-50 p-4 rounded';
+                resultElement.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <h4 class="font-semibold">${result.platform}</h4>
+                        ${result.url ? `<a href="${result.url}" target="_blank" class="text-blue-500 hover:underline">查看原文</a>` : ''}
+                    </div>
+                    ${result.metadata?.title ? `<p class="mt-2 font-medium">${result.metadata.title}</p>` : ''}
+                    <p class="mt-2 text-gray-600">${result.content}</p>
+                    <div class="mt-2 text-sm text-gray-500">
+                        ${result.metadata?.published ? `发布时间: ${result.metadata.published}` : ''}
+                        ${result.metadata?.author ? ` · 作者: ${result.metadata.author}` : ''}
+                    </div>
+                `;
+                resultsList.appendChild(resultElement);
+            });
+            
+            // 添加样式到高亮文本
+            const style = document.createElement('style');
+            style.textContent = `
+                mark {
+                    background-color: #fef08a;
+                    padding: 0.1em 0.2em;
+                    border-radius: 0.2em;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            if (data.results.length === 0) {
+                resultsList.innerHTML = '<p class="text-gray-500">未找到相关结果</p>';
+            }
+            
+        } else {
+            const error = await response.json();
+            alert('搜索失败: ' + error.detail);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('搜索失败，请检查网络连接');
+    }
+});
+</script>
+{% endblock %}
+{% endblock %}

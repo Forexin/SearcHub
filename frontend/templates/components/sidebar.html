@@ -1,0 +1,20 @@
+<aside class="w-64 bg-gray-800 text-white">
+    <div class="p-4">
+        <h1 class="text-2xl font-bold">Data Aggregator</h1>
+    </div>
+    
+    <nav class="mt-4">
+        <a href="/dashboard" class="block px-4 py-2 hover:bg-gray-700 {% if request.url.path == '/dashboard' %}bg-gray-700{% endif %}">
+            <i class="fas fa-chart-line mr-2"></i>仪表盘
+        </a>
+        <a href="/plugins" class="block px-4 py-2 hover:bg-gray-700 {% if request.url.path == '/plugins' %}bg-gray-700{% endif %}">
+            <i class="fas fa-puzzle-piece mr-2"></i>插件管理
+        </a>
+        <a href="/config" class="block px-4 py-2 hover:bg-gray-700 {% if request.url.path == '/config' %}bg-gray-700{% endif %}">
+            <i class="fas fa-cog mr-2"></i>配置管理
+        </a>
+        <a href="/tools" class="block px-4 py-2 hover:bg-gray-700 {% if request.url.path == '/tools' %}bg-gray-700{% endif %}">
+            <i class="fas fa-tools mr-2"></i>工具管理
+        </a>
+    </nav>
+</aside>

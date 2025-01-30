@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="container mx-auto text-center py-16">
+    <div class="bg-white rounded-lg shadow p-8 max-w-lg mx-auto">
+        <i class="fas fa-exclamation-circle text-6xl text-red-500 mb-4"></i>
+        <h1 class="text-4xl font-bold mb-4">{{ error_code }}</h1>
+        <p class="text-xl text-gray-600 mb-8">{{ error_message }}</p>
+        <a href="/" class="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600">
+            返回首页
+        </a>
+    </div>
+</div>
+{% endblock %}
