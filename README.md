@@ -26,8 +26,8 @@
 
 ```bash
 # 克隆仓库
-git clone https://github.com/YOUR_USERNAME/SearchHub.git
-cd SearchHub
+git clone https://github.com/Forexin/SearcHub.git
+cd SearcHub
 
 # 安装依赖
 chmod +x install.sh
