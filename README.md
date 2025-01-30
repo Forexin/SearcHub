@@ -1,4 +1,4 @@
-# SearchHub
+# SearcHub
 
 一个基于 FastAPI 的分布式搜索聚合系统，支持多数据源的实时搜索、聚合和管理。
 
